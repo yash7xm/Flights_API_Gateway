@@ -4,8 +4,18 @@ const router = express.Router();
 
 const { UserController } = require("../../controllers");
 
-router.post("/signup", UserController.signup);
+const { AuthRequestMiddlewares } = require("../../middlewares");
 
-router.post("/signin", UserController.signin);
+router.post(
+  "/signup",
+  AuthRequestMiddlewares.ValidateAuthRequest,
+  UserController.signup
+);
+
+router.post(
+  "/signin",
+  AuthRequestMiddlewares.ValidateAuthRequest,
+  UserController.signin
+);
 
 module.exports = router;
